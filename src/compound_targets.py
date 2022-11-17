@@ -72,18 +72,3 @@ def cursorless_target(m) -> dict:
         "type": "list",
         "elements": ranges,
     }
-    
-    # ranges = [m["range1"]]
-    # with suppress(KeyError):
-    #     ranges.append(m["range2"])
-    #     ranges.append(m["range3"])
-    #     ranges.append(m["range4"])
-    #     ranges.append(m["range5"])
-    
-    # if len(ranges) == 1:
-    #     return ranges[0]            
-    # return {
-    #     "type": "list",
-    #     "elements": ranges,
-    # }
-    

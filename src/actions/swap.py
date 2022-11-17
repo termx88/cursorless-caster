@@ -1,5 +1,3 @@
-# from talon import Module
-
 from contextlib import suppress
 from ..primitive_target import BASE_TARGET
 

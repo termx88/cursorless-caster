@@ -13,10 +13,8 @@ from . import paired_delimiter
 
 ''' primitive_target '''
 
-# longest modifier list?
-# "its value tail" is it even usefull?
+# longest modifier list, that i've found is "its value tail"
 primitive_target_compound = Compound(
-    # spec="[<position>] (<mark> | <modifier1> [<modifier2> [<modifier3>] [<modifier4>]] [<mark>])",
     spec="[<position>] (<mark> | <modifier1> [<modifier2> [<modifier3>]] [<mark>])",
     name="primitive_target",
     extras=[
@@ -25,7 +23,6 @@ primitive_target_compound = Compound(
             RuleRef(modifier_compounds.modifier_rule, "modifier1"),
             RuleRef(modifier_compounds.modifier_rule, "modifier2"),
             RuleRef(modifier_compounds.modifier_rule, "modifier3"),
-            # RuleRef(modifier_compounds.modifier_rule, "modifier4"),
         ],
     value_func=lambda node, extras: primitive_target.cursorless_primitive_target(extras),
 )
@@ -51,27 +48,6 @@ range_rule = RuleWrap("", range_compound).rule
   
 ''' target '''  # top level
     
-# target_compound = Compound(
-#     # spec="<range1> [<list_connective1> <range2>]",
-#     spec="<range1> [<list_connective1> <range2> [<list_connective2> <range3>]]",
-#     # spec="<range1> [<list_connective1> <range2> [<list_connective2> <range3> [<list_connective3> <range4>]]]",
-#     # spec="<range1> [<list_connective1> <range2> [<list_connective2> <range3> [<list_connective3> <range4> [<list_connective4> <range5>]]]]",
-#     name="target",
-#     extras=[
-#             RuleRef(range_rule, "range1"),
-#             RuleRef(range_rule, "range2"),
-#             RuleRef(range_rule, "range3"),
-#             # RuleRef(range_rule, "range4"),
-#             # RuleRef(range_rule, "range5"),
-#             RuleRef(list_connective_rule, "list_connective1"),
-#             RuleRef(list_connective_rule, "list_connective2"),
-#             # RuleRef(list_connective_rule, "list_connective3"),
-#             # RuleRef(list_connective_rule, "list_connective4"),
-#         ],
-#     value_func=lambda node, extras: compound_targets.cursorless_target(extras),
-# )
-# target_rule = RuleWrap("", target_compound).rule
-
 range_repetition = Repetition(
     name="range_repetition",
     child=Compound(

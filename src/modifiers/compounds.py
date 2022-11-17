@@ -28,7 +28,6 @@ except ImportError:
 ''' scope_type '''
 
 scope_type_compound = Compound(
-    # spec="<scope_type>",
     spec="<scope_type> | <custom_regex_scope_type>",
     name="scope_type",
     extras=[
@@ -201,18 +200,6 @@ relative_scope_compound = Compound(
     # value_func=lambda node, extras: relative_scope.cursorless_relative_scope(extras),
 )
 
-# ''' containing_scope ''' # maybe move this near scope_type
-
-# containing_scope_compound = Compound(
-#     spec="[every] <scope_type>",
-#     name="containing_scope",
-#     extras=[
-#             scope_type_compound,
-#             # scope_type_compound,
-#         ],
-#     value_func=lambda node, extras: scopes.cursorless_containing_scope(extras),
-# )
-
 ''' modifier '''
 
 interior_modifier_compound = Compound(
@@ -249,11 +236,6 @@ head_tail_swallowed_modifier_compound = Compound(
         "<ordinal_scope> |"
         "<relative_scope> |"
         "<surrounding_pair>",
-    # spec="<simple_modifier> |"
-    #         "<containing_scope> |"
-    #         "<ordinal_scope> |"
-    #         "<relative_scope> |"
-    #         "<surrounding_pair>",
     name="head_tail_swallowed_modifier",
     extras=[
             simple_modifier_compound,

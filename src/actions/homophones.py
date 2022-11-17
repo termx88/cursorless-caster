@@ -17,6 +17,7 @@ def run_homophones_action(targets: dict):
 
 
 def get_next_homophone(word: str):
+    raise NotImplementedError
     # homophones = actions.user.homophones_get(word)
     homophones = None
     if not homophones:
