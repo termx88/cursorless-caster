@@ -35,7 +35,9 @@ primitive_target_rule = RuleWrap("", primitive_target_compound).rule
 # )).rule 
 
 range_compound = Compound(
-    spec="<primitive_target1> [<range_connective_with_type> [<primitive_target2>]]",
+    spec="<primitive_target1> | "
+        "<range_connective_with_type> <primitive_target1> | "
+        "<primitive_target1> <range_connective_with_type> <primitive_target2>",
     name="range",
     extras=[
             RuleRef(primitive_target_rule, "primitive_target1"),
