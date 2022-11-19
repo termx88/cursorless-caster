@@ -2,6 +2,9 @@ from dragonfly import MappingRule, Function, Choice
 from castervoice.lib.ctrl.mgr.rule_details import RuleDetails
 from castervoice.lib.merge.state.short import R
 
+# required for wrapper_snippet list. Remove when insertion_snippet is implemented 
+from . import snippets
+
 from .actions.actions import Actions as action_actions
 from .command import Actions as command_actions
 from .apps.cursorless_vscode import Actions as vscode_actions

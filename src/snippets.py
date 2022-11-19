@@ -1,27 +1,6 @@
-# from talon import Context, Module, actions, app
-
 from .csv_overrides import init_csv_and_watch_changes
 
 from .command import Actions as command_actions
-
-# mod = Module()
-# mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet action")
-
-# mod.tag(
-#     "cursorless_experimental_snippets",
-#     desc="tag for enabling experimental snippet support",
-# )
-
-# mod.list("cursorless_wrapper_snippet", desc="Cursorless wrapper snippet")
-# mod.list(
-#     "cursorless_insertion_snippet_no_phrase",
-#     desc="Cursorless insertion snippets that don't accept a phrase",
-# )
-# mod.list(
-#     "cursorless_insertion_snippet_single_phrase",
-#     desc="Cursorless insertion snippet that can accept a single phrase",
-# )
-# mod.list("cursorless_phrase_terminator", "Contains term used to terminate a phrase")
 
 
 # @mod.capture(
@@ -90,33 +69,28 @@ def on_ready():
         },
         allow_unknown_values=True,
         default_list_name="wrapper_snippet",
-        # ctx=experimental_snippets_ctx,
     )
-    init_csv_and_watch_changes(
-        "experimental/insertion_snippets",
-        {
-            "insertion_snippet_no_phrase": insertion_snippets_no_phrase,
-        },
-        allow_unknown_values=True,
-        default_list_name="insertion_snippet_no_phrase",
-        # ctx=experimental_snippets_ctx,
-    )
-    init_csv_and_watch_changes(
-        "experimental/insertion_snippets_single_phrase",
-        {
-            "insertion_snippet_single_phrase": insertion_snippets_single_phrase,
-        },
-        allow_unknown_values=True,
-        default_list_name="insertion_snippet_single_phrase",
-        # ctx=experimental_snippets_ctx,
-    )
-    init_csv_and_watch_changes(
-        "experimental/miscellaneous",
-        {
-            "phrase_terminator": phrase_terminators,
-        },
-        # ctx=experimental_snippets_ctx,
-    )
+    # init_csv_and_watch_changes(
+    #     "experimental/insertion_snippets",
+    #     {
+    #         "insertion_snippet_no_phrase": insertion_snippets_no_phrase,
+    #     },
+    #     allow_unknown_values=True,
+    #     default_list_name="insertion_snippet_no_phrase",
+    # )
+    # init_csv_and_watch_changes(
+    #     "experimental/insertion_snippets_single_phrase",
+    #     {
+    #         "insertion_snippet_single_phrase": insertion_snippets_single_phrase,
+    #     },
+    #     allow_unknown_values=True,
+    #     default_list_name="insertion_snippet_single_phrase",
+    # )
+    # init_csv_and_watch_changes(
+    #     "experimental/miscellaneous",
+    #     {
+    #         "phrase_terminator": phrase_terminators,
+    #     },
+    # )
 
 on_ready()
-# app.register("ready", on_ready)
