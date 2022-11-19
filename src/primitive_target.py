@@ -12,7 +12,7 @@ def cursorless_primitive_target(m) -> dict[str, Any]:
 
     position_list = []
     with suppress(KeyError):
-        position_list = m["position"]
+        position_list.append(m["position"])
     
     modifier_list = []
     with suppress(KeyError):

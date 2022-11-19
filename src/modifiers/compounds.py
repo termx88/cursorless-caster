@@ -336,6 +336,5 @@ position_compound = Compound(
     extras=[
             get_ref("position"),
         ],
-    # returns exact
-    # value_func=lambda node, extras: position.cursorless_position(extras),
+    value_func=lambda node, extras: position.cursorless_position(extras),
 )
