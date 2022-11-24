@@ -20,6 +20,7 @@ This repository holds the Caster side of Cursorless (re-adapted from Talon).
 
 ### Minor problems:
 * Using kaldi values not in lexicon. Without a generator repeats multiple times. Which takes a bit of time.
+* "cursorless cheatsheet", might "freeze" Caster if too many settings are disabled.	
 
 ### Not implemented:
 * Homophones.
@@ -33,8 +34,7 @@ This repository holds the Caster side of Cursorless (re-adapted from Talon).
 ### Likely happens in cursorless-talon as well:
 * Sometimes throws "Must use command-server extension for advanced commands"
 		and requires visual studio code reboot.
-* "cursorless cheatsheet", might "freeze" Caster if too many settings are disabled.	
-
+		
 ### Other notes:
 * The Rule file is located in "src/cursorless_caster.py". 
 * Importing "alphabet_support" and "punctuation_support". From user directory, by importing from "caster_user_content.rules.alphabet_rules" and "caster_user_content.rules.punctuation_rules".
