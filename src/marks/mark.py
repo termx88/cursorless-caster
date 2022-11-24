@@ -1,11 +1,14 @@
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Any
 from contextlib import suppress
+from dataclasses import dataclass
+from typing import Any
 
-from ..csv_overrides import init_csv_and_watch_changes
-from .lines_number import DEFAULT_DIRECTIONS
+from dragonfly import Compound
+
 from ..apps import vscode_settings
+from ..csv_overrides import init_csv_and_watch_changes
+from ..cursorless_lists import get_list_ref
+from .lines_number import DEFAULT_DIRECTIONS
+
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
@@ -34,23 +37,52 @@ hat_shapes = {
 
 unknown_symbols_defaults = {"special": "unknownSymbol"}
 
+
+def get_grapheme_compound() -> Compound:
+    from .alphanumeric import get_any_alphanumeric_key_compound
+
+    return Compound(
+        spec="<any_alphanumeric_key> | <unknown_symbol>",
+        name="grapheme",
+        extras=[
+            get_list_ref("unknown_symbol"),
+            get_any_alphanumeric_key_compound(),
+        ],
+        value_func=lambda node, extras: cursorless_grapheme(extras),
+    )
+
+
 def cursorless_grapheme(m) -> str:
     # NB: This represents unknown char in Unicode.  It will be translated
     # to "[unk]" by Cursorless extension.
-    output = "\uFFFD" 
+    output = "\uFFFD"
     with suppress(KeyError):
         output = m["any_alphanumeric_key"]
-        
+
     with suppress(KeyError):
         output = m["unknown_symbol"]
-        
+
     return output
-    
+
+
+def get_decorated_symbol_compound() -> Compound:
+    return Compound(
+        spec="[<hat_color>] [<hat_shape>] <grapheme>",
+        name="decorated_symbol",
+        extras=[
+            get_list_ref("hat_color"),
+            get_list_ref("hat_shape"),
+            get_grapheme_compound(),
+        ],
+        value_func=lambda node, extras: cursorless_decorated_symbol(extras),
+    )
+
+
 def cursorless_decorated_symbol(m) -> dict[str, Any]:
     hat_color = "default"
     with suppress(KeyError):
         hat_color = m["hat_color"]
-        
+
     try:
         hat_style_name = f"{hat_color}-{m['hat_shape']}"
     except KeyError:
@@ -60,6 +92,7 @@ def cursorless_decorated_symbol(m) -> dict[str, Any]:
         "symbolColor": hat_style_name,
         "character": m["grapheme"],
     }
+
 
 @dataclass
 class CustomizableTerm:
@@ -84,14 +117,31 @@ special_marks_defaults = {
     term.defaultSpokenForm: term.cursorlessIdentifier for term in special_marks
 }
 
+
+def get_mark_compound() -> Compound:
+    from .lines_number import get_line_number_compound
+
+    return Compound(
+        spec="<decorated_symbol> | <special_mark> | <line_number>",
+        name="mark",
+        extras=[
+            get_decorated_symbol_compound(),
+            get_list_ref("special_mark"),
+            get_line_number_compound(),
+        ],
+        value_func=lambda node, extras: cursorless_mark(extras),
+    )
+
+
 def cursorless_mark(m) -> dict[str, Any]:
     with suppress(KeyError):
         return m["decorated_symbol"]
-        
+
     with suppress(KeyError):
         return special_marks_map[m["special_mark"]].value
-        
+
     return m["line_number"]
+
 
 DEFAULT_COLOR_ENABLEMENT = {
     "blue": True,
@@ -138,7 +188,7 @@ unsubscribe_hat_styles = None
 
 def setup_hat_styles_csv():
     global unsubscribe_hat_styles
-    
+
     (
         color_enablement_settings,
         is_color_error,
@@ -178,7 +228,7 @@ def setup_hat_styles_csv():
         for spoken_form, value in hat_shapes.items()
         if shape_enablement[value]
     }
-    
+
     if unsubscribe_hat_styles is not None:
         unsubscribe_hat_styles()
 
@@ -201,15 +251,17 @@ def setup_hat_styles_csv():
             [*hat_colors.values(), *hat_shapes.values()],
             no_update_file=is_shape_error or is_color_error,
         )
-    
+
     if is_shape_error or is_color_error:
         print("Error reading vscode settings. Restart talon; see log")
-        
+
+
 fast_reload_job = None
 slow_reload_job = None
 
+
 def on_ready():
-    
+
     init_csv_and_watch_changes(
         "special_marks",
         {
@@ -232,6 +284,5 @@ def on_ready():
     #     slow_reload_job = cron.after("10s", setup_hat_styles_csv)
 
     # fs.watch(str(vscode_settings_path), on_watch)
-
 
 on_ready()

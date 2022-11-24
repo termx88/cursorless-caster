@@ -1,6 +1,7 @@
 import re
 
-from .. import cursorless_lists 
+from .. import cursorless_lists
+
 
 def get_list(name, type, descriptions=None):
     if descriptions is None:
@@ -13,7 +14,7 @@ def get_list(name, type, descriptions=None):
 
 
 def get_lists(names: list[str], type: str, descriptions=None):
-    
+
     return [item for name in names for item in get_list(name, type, descriptions)]
 
 

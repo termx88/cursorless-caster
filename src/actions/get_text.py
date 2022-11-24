@@ -1,6 +1,7 @@
 from typing import Optional
 
-from ..command import Actions  as command_actions
+from ..command import Actions as command_actions
+
 
 def get_text(
     target: dict,

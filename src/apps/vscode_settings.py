@@ -3,9 +3,10 @@ import traceback
 from pathlib import Path
 from typing import Any
 
+from castervoice.lib.contexts import is_linux, is_macos, is_windows
+
 from ..vendor.jstyleson import loads
 
-from castervoice.lib.contexts import is_windows, is_linux, is_macos
 
 class Actions:
     def vscode_settings_path() -> Path:
@@ -67,5 +68,5 @@ def vscode_settings_path() -> Path:
         path = appdata / "Code/User/settings.json"
         alt_path = appdata / "VSCodium/User/settings.json"
     else:
-        raise NotImplementedError("This OS is not supported") 
+        raise NotImplementedError("This OS is not supported")
     return pick_path([path, alt_path])

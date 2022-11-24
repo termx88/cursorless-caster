@@ -1,23 +1,23 @@
-from dragonfly import DictList, DictListRef, Choice, Impossible
-        
+from dragonfly import Choice, Impossible
+
 lists = {}
 
+
 def get_dict(name) -> dict:
-    for key in lists:
-        if key == name:
-            return lists[key]
-    return {}
+    if name in lists:
+        return lists[name]
+    else:
+        return {}
+
 
 def append_list(name, dictionary):
-    found = False
-    for key in lists:
-        if key == name:
-            lists[key].update(dictionary)
-            found = True
-    if not found:
+    if name in lists:
+        lists[name].update(dictionary)
+    else:
         lists.update({name: dictionary})
-        
-def get_ref(name):
+
+
+def get_list_ref(name):
     dictionary = get_dict(name)
     if dictionary == {}:
         return Impossible(name)

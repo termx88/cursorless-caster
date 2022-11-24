@@ -1,15 +1,15 @@
 import csv
+import os
 from collections.abc import Container
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
 from .cursorless_lists import append_list
+
 # from .conventions import get_cursorless_list_name
 from .vendor.inflection import pluralize
 
-import os
-    
 SPOKEN_FORM_HEADER = "Spoken form"
 CURSORLESS_IDENTIFIER_HEADER = "Cursorless identifier"
 
@@ -22,7 +22,7 @@ def init_csv_and_watch_changes(
     default_list_name: Optional[str] = None,
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
     no_update_file: bool = False,
-    pluralize_lists: Optional[list[str]] = []
+    pluralize_lists: Optional[list[str]] = [],
 ):
     """
     Initialize a cursorless settings csv, creating it if necessary, and watch
@@ -74,7 +74,7 @@ def init_csv_and_watch_changes(
     #             extra_ignored_values,
     #             allow_unknown_values,
     #             default_list_name,
-    #		      pluralize_lists,
+    # 		      pluralize_lists,
     #         )
 
     # fs.watch(str(file_path.parent), on_watch)
@@ -147,7 +147,7 @@ def update_dicts(
                 }
             else:
                 raise
-    
+
     # Convert result map back to result list
     results = {res["list"]: {} for res in results_map.values()}
     for obj in results_map.values():
@@ -162,8 +162,8 @@ def update_dicts(
         append_list(list_name, dict)
         if list_name in pluralize_lists:
             list_plural_name = f"{list_name}_plural"
-            append_list(list_plural_name, {pluralize(k): v for k, v in dict.items()})  
-           
+            append_list(list_plural_name, {pluralize(k): v for k, v in dict.items()})
+
 
 def update_file(
     path: Path,
@@ -209,7 +209,7 @@ def update_file(
                 "See release notes for more info: "
                 "https://github.com/cursorless-dev/cursorless/blob/main/CHANGELOG.md"
             )
-            
+
     return current_values
 
 
@@ -308,7 +308,7 @@ def get_full_path(filename: str):
     # using cursorless/settings folder for settings
     settings_directory = Path(os.path.join(os.path.dirname(__file__), "settings"))
     # user_dir: Path = settings.SETTINGS["paths"]["BASE_PATH"]
-    
+
     return (settings_directory / filename).resolve()
 
 

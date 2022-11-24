@@ -1,9 +1,13 @@
 from collections.abc import Callable
+from contextlib import suppress
 from dataclasses import dataclass
 from typing import Any
-from contextlib import suppress
+
+from dragonfly import Compound, ShortIntegerRef
 
 from ..compound_targets import is_active_included, is_anchor_included
+from ..cursorless_lists import get_list_ref
+
 
 @dataclass
 class CustomizableTerm:
@@ -27,6 +31,20 @@ directions = [
 
 directions_map = {d.cursorlessIdentifier: d for d in directions}
 DEFAULT_DIRECTIONS = {d.defaultSpokenForm: d.cursorlessIdentifier for d in directions}
+
+
+def get_line_number_compound() -> Compound:
+    return Compound(
+        spec="<line_direction> <n100_1>  [<range_connective> <n100_2>]",
+        name="line_number",
+        extras=[
+            get_list_ref("line_direction"),
+            ShortIntegerRef("n100_1", 0, 100),
+            get_list_ref("range_connective"),
+            ShortIntegerRef("n100_2", 0, 100),
+        ],
+        value_func=lambda node, extras: cursorless_line_number(extras),
+    )
 
 
 def cursorless_line_number(m) -> dict[str, Any]:

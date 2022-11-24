@@ -11,6 +11,7 @@ range_connectives = {
 
 default_range_connective = "rangeInclusive"
 
+
 def on_ready():
     init_csv_and_watch_changes(
         "target_connectives",
@@ -21,5 +22,6 @@ def on_ready():
             "source_destination_connective": {"to": "sourceDestinationConnective"},
         },
     )
+
 
 on_ready()

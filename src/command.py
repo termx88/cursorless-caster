@@ -1,7 +1,6 @@
 from typing import Any
 
 from .command_client.command_client import Actions as client_actions
-
 from .cursorless_command_server import (
     run_rpc_command_and_wait,
     run_rpc_command_get,
@@ -10,6 +9,7 @@ from .cursorless_command_server import (
 from .primitive_target import IMPLICIT_TARGET
 
 CURSORLESS_COMMAND_ID = "cursorless.command"
+
 
 class NotSet:
     def __repr__(self):
@@ -137,4 +137,4 @@ def construct_cursorless_command_argument(
 def get_spoken_form():
     # too minor to do properly
     return "spoken form"
-    #return " ".join(last_phrase["phrase"])
+    # return " ".join(last_phrase["phrase"])

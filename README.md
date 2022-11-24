@@ -16,11 +16,10 @@ This repository holds the Caster side of Cursorless (re-adapted from Talon).
 	* Also due to it I set "and \<target\>" repetition to only 2 times.
 	as in "\<target\> and \<target\> and \<target\>" being the max. 
 	ex. "take brov and norway and blue prime".
-	  If someone wants to change it, the limit is defined in "src/compounds.py" range_repetition max parameter (3 means 2 repetitions of "and \<target\>").
+	  If someone wants to change it, the limit is defined in the "src/compound_targets.py" file in the "get_range_repetition" function. As the "max" parameter (3 means 2 repetitions of "and \<target\>").
 
 ### Minor problems:
 * Using kaldi values not in lexicon. Without a generator repeats multiple times. Which takes a bit of time.
-* It's fairly untidy, mostly focused on getting it working. 
 
 ### Not implemented:
 * Homophones.
@@ -37,9 +36,8 @@ This repository holds the Caster side of Cursorless (re-adapted from Talon).
 * "cursorless cheatsheet", might "freeze" Caster if too many settings are disabled.	
 
 ### Other notes:
-* The Rule file is located in "src/cursorless_caster.py".
-* Using caster_user_content.rules. 
-	to import "alphabet_support" and "punctuation_support" from user directory.
+* The Rule file is located in "src/cursorless_caster.py". 
+* Importing "alphabet_support" and "punctuation_support". From user directory, by importing from "caster_user_content.rules.alphabet_rules" and "caster_user_content.rules.punctuation_rules".
 * Might be a bit outdated to latest official cursorless-talon.	
 
 ## Main Cursorless project

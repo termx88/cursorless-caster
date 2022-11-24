@@ -2,10 +2,9 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
+from ..apps.cursorless_vscode import Actions as vscode_actions
 from .call import run_call_action
 from .homophones import run_homophones_action
-from ..apps.cursorless_vscode import Actions as vscode_actions
-
 
 @dataclass
 class CallbackAction:

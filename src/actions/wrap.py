@@ -1,14 +1,33 @@
 from dataclasses import dataclass
 from typing import Literal
 
-from ..paired_delimiter import paired_delimiters_map
+from dragonfly import Compound
+
 from ..command import Actions as command_actions
+from ..cursorless_lists import get_list_ref
+from ..paired_delimiter import paired_delimiters_map
+
 
 @dataclass
 class Wrapper:
     type: Literal["pairedDelimiter", "snippet"]
     extra_args: list[str]
-    
+
+
+def get_wrapper_compound() -> Compound:
+    from ..paired_delimiter import get_wrapper_paired_delimiter_compound
+
+    return Compound(
+        spec="<wrapper_paired_delimiter> | <wrapper_snippet>",
+        name="wrapper",
+        extras=[
+            get_wrapper_paired_delimiter_compound(),
+            get_list_ref("wrapper_snippet"),
+        ],
+        value_func=lambda node, extras: cursorless_wrapper(extras),
+    )
+
+
 def cursorless_wrapper(m) -> Wrapper:
     try:
         paired_delimiter_info = paired_delimiters_map[

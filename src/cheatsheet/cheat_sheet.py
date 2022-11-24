@@ -13,6 +13,7 @@ from .sections.special_marks import get_special_marks
 cheatsheet_out_dir = Path(tempfile.mkdtemp())
 instructions_url = "https://www.cursorless.org/docs/"
 
+
 class Actions:
     def cursorless_cheat_sheet_show_html():
         """Show new cursorless html cheat sheet"""
@@ -30,6 +31,7 @@ class Actions:
     def cursorless_open_instructions():
         """Open web page with cursorless instructions"""
         webbrowser.open(instructions_url)
+
 
 def cursorless_cheat_sheet_get_json():
     """Get cursorless cheat sheet json"""
