@@ -1,23 +1,28 @@
+from dragonfly import Compound
+
 from .command import Actions as command_actions
 from .csv_overrides import init_csv_and_watch_changes
+from .cursorless_lists import get_list_ref
 
 
-# @mod.capture(
-#     rule="{user.cursorless_insertion_snippet_no_phrase} | {user.cursorless_insertion_snippet_single_phrase}"
-# )
+def get_insertion_snippet_compound() -> Compound:
+    return Compound(
+        spec="<insertion_snippet_no_phrase> | <insertion_snippet_single_phrase>",
+        name="insertion_snippet",
+        extras=[
+            get_list_ref("insertion_snippet_no_phrase"),
+            get_list_ref("insertion_snippet_single_phrase"),
+        ],
+        value_func=lambda node, extras: cursorless_insertion_snippet(extras),
+    )
+
 def cursorless_insertion_snippet(m) -> str:
     try:
-        return m.cursorless_insertion_snippet_no_phrase
-    except AttributeError:
+        return m["insertion_snippet_no_phrase"]
+    except KeyError:
         pass
 
-    return m.cursorless_insertion_snippet_single_phrase.split(".")[0]
-
-
-# experimental_snippets_ctx = Context()
-# experimental_snippets_ctx.matches = r"""
-# tag: user.cursorless_experimental_snippets
-# """
+    return m["cursorless_insertion_snippet_single_phrase"].split(".")[0]
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
@@ -48,7 +53,7 @@ insertion_snippets_single_phrase = {
 
 phrase_terminators = {"over": "phraseTerminator"}
 
-# @mod.action_class
+
 class Actions:
     def cursorless_insert_snippet_with_phrase(
         action: str, snippet_description: str, text: str
@@ -56,7 +61,7 @@ class Actions:
         """Perform cursorless wrap action"""
         snippet_name, snippet_variable = snippet_description.split(".")
         command_actions.cursorless_implicit_target_command(
-            action, snippet_name, {snippet_variable: text}
+            action, snippet_name, {snippet_variable: text.format()}
         )
 
 
@@ -69,28 +74,28 @@ def on_ready():
         allow_unknown_values=True,
         default_list_name="wrapper_snippet",
     )
-    # init_csv_and_watch_changes(
-    #     "experimental/insertion_snippets",
-    #     {
-    #         "insertion_snippet_no_phrase": insertion_snippets_no_phrase,
-    #     },
-    #     allow_unknown_values=True,
-    #     default_list_name="insertion_snippet_no_phrase",
-    # )
-    # init_csv_and_watch_changes(
-    #     "experimental/insertion_snippets_single_phrase",
-    #     {
-    #         "insertion_snippet_single_phrase": insertion_snippets_single_phrase,
-    #     },
-    #     allow_unknown_values=True,
-    #     default_list_name="insertion_snippet_single_phrase",
-    # )
-    # init_csv_and_watch_changes(
-    #     "experimental/miscellaneous",
-    #     {
-    #         "phrase_terminator": phrase_terminators,
-    #     },
-    # )
+    init_csv_and_watch_changes(
+        "experimental/insertion_snippets",
+        {
+            "insertion_snippet_no_phrase": insertion_snippets_no_phrase,
+        },
+        allow_unknown_values=True,
+        default_list_name="insertion_snippet_no_phrase",
+    )
+    init_csv_and_watch_changes(
+        "experimental/insertion_snippets_single_phrase",
+        {
+            "insertion_snippet_single_phrase": insertion_snippets_single_phrase,
+        },
+        allow_unknown_values=True,
+        default_list_name="insertion_snippet_single_phrase",
+    )
+    init_csv_and_watch_changes(
+        "experimental/miscellaneous",
+        {
+            "phrase_terminator": phrase_terminators,
+        },
+    )
 
 
 on_ready()

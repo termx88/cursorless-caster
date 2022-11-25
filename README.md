@@ -23,8 +23,8 @@ This repository holds the Caster side of Cursorless (re-adapted from Talon).
 * "cursorless cheatsheet", might "freeze" Caster if too many settings are disabled.	
 
 ### Not implemented:
+* Disabling of experimental snippets feature (currently to disable. Just comment out imports "from .snippets", commands and extras. Defined inside cursorless_caster.py).
 * Homophones.
-* Snippets.
 * Reformat.
 * Changing settings folder location (currently is in "src/settings" folder).
 * Live update of lists/settings.
