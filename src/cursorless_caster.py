@@ -1,6 +1,6 @@
 from castervoice.lib.ctrl.mgr.rule_details import RuleDetails
 from castervoice.lib.merge.state.short import R
-from dragonfly import Function, MappingRule
+from dragonfly import Function, MappingRule, Choice
 
 # required for wrapper_snippet list. Remove when insertion_snippet is implemented 
 from . import snippets
@@ -20,6 +20,7 @@ from .command import Actions as command_actions
 from .compound_targets import get_target_compound
 from .cursorless_lists import get_list_ref
 from .positional_target import get_positional_target_compound
+from .terms import cursorless_homophone
 
 
 class Cursorless(MappingRule):
@@ -71,14 +72,14 @@ class Cursorless(MappingRule):
                     )
             )),
 
-        "cursor less settings":
+        "<cursorless_homophone> settings":
             R(Function(vscode_actions.cursorless_show_settings_in_ide)),
 
-        "cursor less cheat sheet":
+        "<cursorless_homophone> (reference | ref | cheatsheet | cheat sheet)":
             R(Function(
                 file_cheat_sheet.Actions.cursorless_cheat_sheet_show_html
             )),
-        "cursor less help":
+        "<cursorless_homophone> (instructions | docks | help) | help <cursorless_homophone>":
             R(Function(
                 file_cheat_sheet.Actions.cursorless_open_instructions
                 )),
@@ -95,6 +96,7 @@ class Cursorless(MappingRule):
         # get_ref("reformat_action"),
         get_list_ref("wrap_action"),
         get_wrapper_compound(),
+        Choice("cursorless_homophone", cursorless_homophone),
     ]
 
 

@@ -17,8 +17,8 @@ Stores terms that are used in many different places
 #     "cursor list",
 # ]
 
-# cursorless_homophone = [
-#     "cursorless",
-#     "cursor less",
-#     "cursor list",
-# ]
+cursorless_homophone = [
+    "cursorless",
+    "cursor less",
+    "cursor list",
+]
