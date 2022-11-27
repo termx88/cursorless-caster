@@ -11,7 +11,7 @@ from .actions.swap import get_swap_targets_compound
 from .actions.wrap import Actions as wrap_actions, get_wrapper_compound
 from .apps.cursorless_vscode import Actions as vscode_actions
 
-# from .actions.reformat import Actions as reformat_actions
+from .actions.reformat import Actions as reformat_actions
 from .cheatsheet import cheat_sheet as file_cheat_sheet
 from .command import Actions as command_actions
 from .compound_targets import get_target_compound
@@ -59,14 +59,15 @@ class Cursorless(MappingRule):
                     # )
             # )),
             
-        # not implemented
-        # "<reformat_action> <formatters> at <target>": 
-        #     R(Function(
-        #         lambda target, formatters:
-        #             reformat_actions.cursorless_reformat(
-        #                 target, formatters
-        #             )
-        #     )),
+        "<reformat_action>"
+        "(<capitalization> <spacing> | <capitalization> | <spacing>)"
+        "[(bow|bowel)] at <target>": 
+            R(Function(
+                lambda target, capitalization, spacing:
+                    reformat_actions.cursorless_reformat(
+                        target, capitalization, spacing
+                    )
+            )),
         
         "<wrapper> <wrap_action> <target>":
             R(Function(
@@ -130,7 +131,28 @@ class Cursorless(MappingRule):
         get_list_ref("move_bring_action"),
         get_move_bring_targets_compound(),
         
-        # get_ref("reformat_action"),
+        get_list_ref("reformat_action"),
+        Choice("capitalization", {
+            "yell": 1,
+            "tie": 2,
+            "gerrish": 3,
+            "sing": 4,
+            "laws": 5,
+            "say": 6,
+            "cop": 7,
+            "slip": 8,
+        }),
+        Choice(
+            "spacing", {
+                "gum": 1,
+                "gun": 1,
+                "spine": 2,
+                "snake": 3,
+                "pebble": 4,
+                "incline": 5,
+                "dissent": 6,
+                "descent": 6,
+            }),
         
         get_list_ref("wrap_action"),
         get_wrapper_compound(),
@@ -143,6 +165,11 @@ class Cursorless(MappingRule):
         get_list_ref("phrase_terminator"),
         Dictation("text"),
     ]
+    
+    defaults = {
+        "capitalization": 0,
+        "spacing": 0,
+    }
 
 
 def get_rule():

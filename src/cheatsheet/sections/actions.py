@@ -81,16 +81,16 @@ def get_actions():
                 },
             ],
         },
-        # {
-        #     "id": "applyFormatter",
-        #     "type": "action",
-        #     "variations": [
-        #         {
-        #             "spokenForm": f"{complex_actions['applyFormatter']} <formatter> at <target>",
-        #             "description": "Reformat <target> as <formatter>",
-        #         }
-        #     ],
-        # },
+        {
+            "id": "applyFormatter",
+            "type": "action",
+            "variations": [
+                {
+                    "spokenForm": f"{complex_actions['applyFormatter']} <formatter> at <target>",
+                    "description": "Reformat <target> as <formatter>",
+                }
+            ],
+        },
         {
             "id": "wrapWithPairedDelimiter",
             "type": "action",
