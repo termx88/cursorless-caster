@@ -120,16 +120,23 @@ class Cursorless(MappingRule):
     extras = [
         get_action_or_ide_command_compound(),
         get_target_compound(),
+        
         get_list_ref("positional_action"),
         get_positional_target_compound(),
+        
         get_list_ref("swap_action"),
         get_swap_targets_compound(),
+        
         get_list_ref("move_bring_action"),
         get_move_bring_targets_compound(),
+        
         # get_ref("reformat_action"),
+        
         get_list_ref("wrap_action"),
         get_wrapper_compound(),
+        
         Choice("cursorless_homophone", cursorless_homophone),
+        
         get_list_ref("insert_snippet_action"),
         get_insertion_snippet_compound(),
         get_list_ref("insertion_snippet_single_phrase"),
