@@ -9,19 +9,6 @@ from .range_type import range_types
 from .relative_scope import forward_backward_modifiers, previous_next_modifiers
 from .simple_scope_modifier import simple_scope_modifiers
 
-# from .interior import get_interior_modifier_compound
-# from .simple_scope_modifier import get_simple_scope_modifier_compound
-# from .head_tail import get_head_tail_modifier_compound
-# from .range_type import get_range_type_compound
-# from .relative_scope import (
-#     get_relative_direction_compound,
-#     get_relative_scope_count_compound
-# )
-# from .ordinal_scope import (
-#     get_first_last_compound,
-#     get_ordinal_or_last_compound,
-#     get_ordinal_range_compound
-# )
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
@@ -78,11 +65,6 @@ modifiers = [
 def get_modifier_compound() -> Compound:
     from .head_tail import get_head_tail_modifier_compound
     from .interior import get_interior_modifier_compound
-
-    # from .surrounding_pair import get_surrounding_pair_compound
-    # from .simple_scope_modifier import get_simple_scope_modifier_compound
-    # from .relative_scope import get_relative_scope_compound
-    # from .ordinal_scope import get_ordinal_scope_compound
 
     return Compound(
         spec=(
