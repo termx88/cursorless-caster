@@ -50,14 +50,13 @@ class Cursorless(MappingRule):
                     )
             )),
             
-        # memory hungry to cache
-        # "<move_bring_action> <move_bring_targets>": 
-            # R(Function(
-                # lambda move_bring_action, move_bring_targets:
-                    # command_actions.cursorless_multiple_target_command(
-                        # move_bring_action, move_bring_targets
-                    # )
-            # )),
+        "<move_bring_action> <move_bring_targets>": 
+            R(Function(
+                lambda move_bring_action, move_bring_targets:
+                    command_actions.cursorless_multiple_target_command(
+                        move_bring_action, move_bring_targets
+                    )
+            )),
             
         "<reformat_action>"
         "(<capitalization> <spacing> | <capitalization> | <spacing>)"
