@@ -14,16 +14,11 @@ This repository holds the [Caster](https://github.com/dictation-toolbox/Caster) 
 * [Official Cursorless documentation](https://www.cursorless.org/docs/).
 
 ## Project State
-### Main problems:
-* Takes a while to cache with big kaldi. Goes up to ~5GB.
-	* Because of that "\<move_bring_action\> \<move_bring_targets\>" is commented out by default (in the "src/cursorless_caster.py" file).
-	* Also due to it I set "and \<target\>" repetition to only 2 times.
-	as in "\<target\> and \<target\> and \<target\>" being the max. 
-	ex. "take brov and norway and blue prime".
-	  If someone wants to change it, the limit is defined in the "src/compound_targets.py" file in the "get_range_repetition" function. As the "max" parameter (3 means 2 repetitions of "and \<target\>").
-
-### Minor problems:
-* Using kaldi values not in lexicon. Without a generator repeats multiple times. Which takes a bit of time.
+### Problems:
+* Takes a while to cache with big kaldi. Goes up to ~4GB.
+	* Due to it I set "and \<target\>" repetition max to 3 times.
+	as in "\<target\> and \<target\> and \<target\> and \<target\>" being the max. 
+	  If someone wants to change it, the limit is defined in the "src/compound_targets.py" file in the "get_range_repetition" function. As the "max" parameter (4 means 3 repetitions of "and \<target\>").
 * "cursorless cheatsheet", might "freeze" Caster if too many settings are disabled.	
 * Importing "alphabet_support" and "punctuation_support". From user directory, by importing from "caster_user_content.rules.alphabet_rules" and "caster_user_content.rules.punctuation_rules".
 * Capitalization and Spacing dicts are redefined in the Rule file extras.

@@ -110,7 +110,7 @@ def get_range_repetition() -> Repetition:
             ],
         ),
         min=0,
-        max=3,
+        max=4,
     )
 
 
