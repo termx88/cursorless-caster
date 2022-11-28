@@ -23,7 +23,7 @@ def get_modifier_repetition() -> Repetition:
         min=1,
         # longest modifier list, that i've found is "its value tail"
         # so setting to 3 repetitions (max is -1)
-        max=4,
+        max=2,
     )
 
 
