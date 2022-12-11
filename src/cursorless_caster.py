@@ -175,6 +175,5 @@ def get_rule():
     details = RuleDetails(
         name="cursor less",
         executable=["code", "VSCodium"],
-        title=["Visual Studio Code", "VSCodium"],
     )
     return Cursorless, details
