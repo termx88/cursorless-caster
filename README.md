@@ -2,6 +2,7 @@
 This repository holds the [Caster](https://github.com/dictation-toolbox/Caster) side of [Cursorless](https://github.com/cursorless-dev/cursorless) (re-adapted from [cursorless-talon](https://github.com/cursorless-dev/cursorless/tree/main/cursorless-talon)).
 
 ## Installing and using
+### [2025.11] Because these files are based on an outdated cursorless-talon version use v0.27.0 of parse tree and v0.27.837 of cursorless, otherwise language commands won't work
 * Install [Caster](https://github.com/dictation-toolbox/Caster).
 * Install [VSCode](https://code.visualstudio.com).
 * Install the [VSCode Cursorless extension](https://marketplace.visualstudio.com/items?itemName=pokey.cursorless).
